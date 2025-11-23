@@ -3,7 +3,7 @@
 package hotelbusiness
 
 import (
-"sort"
+    "sort"
 )
 
 type Guest struct {
@@ -23,7 +23,7 @@ func ComputeLoad(guests []Guest, ) []Load {
 	dates := make(map[int]int)
 	var keys []int
 
-	for _,g := range guests {
+	for _, g := range guests {
 
 		if g == (Guest{}) {
 			continue

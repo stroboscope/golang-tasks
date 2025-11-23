@@ -25,7 +25,7 @@ var sMap = map[uint64]string{
 	15:         "fifteen",
 	16:         "sixteen",
 	17:         "seventeen",
-	18:         "eightteen",
+	18:         "eighteen",
 	19:         "nineteen",
 	20:         "twenty",
 	30:         "thirty",
@@ -43,18 +43,15 @@ var sMap = map[uint64]string{
 
 // количество разрядов
 func digits(n uint64) int {
-	var i uint64 = 1
-	var k int = 0
-
-	for {
-		if (n / i) > 0 {
-			k++
-			i = i * 10
-		} else {
-			break
-		}
+	if n == 0 {
+            return 1
 	}
-	return int(k)
+	count := 0
+	for n > 0 {
+            count++
+            n /= 10
+	}
+	return count
 }
 
 func Spell(n int64) string {
@@ -68,7 +65,7 @@ func Spell(n int64) string {
 
 	if n < 0 {
 		prefix = "minus "
-		d = uint64(n - 2*n)
+		d = uint64(-n)
 		dig = digits(uint64(d))
 	} else {
 		d = uint64(n)
@@ -256,7 +253,7 @@ func Spell(n int64) string {
 	case d <= 20:
 		result = prefix + spellOnes(d)
 
-	case (21 < d) && (d <= 99):
+	case (21 <= d) && (d <= 99):
 		result = prefix + spellTens(d)
 
 	case (3 <= dig) && (dig < 4):
