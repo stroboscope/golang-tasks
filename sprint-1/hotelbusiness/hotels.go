@@ -21,7 +21,6 @@ func ComputeLoad(guests []Guest, ) []Load {
 	var load []Load
 
 	dates := make(map[int]int)
-	var keys []int
 
 	for _, g := range guests {
 
@@ -33,6 +32,7 @@ func ComputeLoad(guests []Guest, ) []Load {
 	}
 
 
+	keys := make([]int, 0, len(dates))
 	for k := range dates {
 		keys = append(keys,k)
 	}
