@@ -35,7 +35,7 @@ func CastTo(spell Spell, object interface{}) {
 			}
 		}
 	case *Wall:
-                if spell.Char() == "Durability" {
+		if spell.Char() == "Durability" {
 			fn := v.FieldByName("Durability")
 			if fn.CanSet() {
 				fn.SetInt(fn.Int() + int64(spell.Value()))
