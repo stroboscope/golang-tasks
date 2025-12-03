@@ -39,7 +39,7 @@ func (M myError) String() error {
 // должно быть ровно 2 пробела
 func MyCheck(input string) error {
 
-	result := myError{nil, nil, nil}
+	result := make(myError, 3)
 	runes := []rune(input)
 	spaces := 0
 	numbers := 0
