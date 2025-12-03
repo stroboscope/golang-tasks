@@ -17,16 +17,11 @@ func (M myError) String() error {
 	var s []string
 	sep := ";"
 
-	if M[0] != nil {
-		s = append(s, M[0].Error())
-	}
+	for i := 0; i < len(M); i++ {
 
-	if M[1] != nil {
-		s = append(s, M[1].Error())
-	}
-
-	if M[2] != nil {
-		s = append(s, M[2].Error())
+		if M[i] != nil {
+			s = append(s, M[i].Error())
+		}
 	}
 
 	j := strings.Join(s, sep)
