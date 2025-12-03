@@ -3,8 +3,8 @@ package mycheck
 import (
 	"errors"
 	"fmt"
-	"unicode"
 	"strings"
+	"unicode"
 )
 
 // slice с перечнем ошибок
@@ -38,14 +38,13 @@ func (M myError) String() error {
 	return errors.New(j)
 }
 
-
 // проверка строки на соответствие требованиям
 // не должно быть чисел
 // длина строки не должна превышать 20 символов
 // должно быть ровно 2 пробела
 func MyCheck(input string) error {
 
-	result := myError {nil,nil,nil}
+	result := myError{nil, nil, nil}
 	runes := []rune(input)
 	spaces := 0
 	numbers := 0
