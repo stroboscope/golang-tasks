@@ -24,22 +24,26 @@ func CastToAll(spell Spell, objects []interface{}) {
 
 func CastTo(spell Spell, object interface{}) {
 
-	v := reflect.ValueOf(object).Elem()
+	// проверяем наличие у объекта метода ReceiveSpell
+	// и применяем заклинание через него, если он присутствует
+	_, ok := reflect.TypeOf(object).MethodByName("ReceiveSpell")
+	if ok {
+		a := make([]reflect.Value, 1)
+		a[0] = reflect.ValueOf(spell)
+		reflect.ValueOf(object).MethodByName("ReceiveSpell").Call(a)
+		return
+	}
 
-	switch object.(type) {
-	case *Daemon, *Zombie, *Orc:
-		if spell.Char() == "Health" {
-			fn := v.FieldByName("Health")
-			if fn.CanSet() {
-				fn.SetInt(fn.Int() + int64(spell.Value()))
-			}
-		}
-	case *Wall:
-		if spell.Char() == "Durability" {
-			fn := v.FieldByName("Durability")
-			if fn.CanSet() {
-				fn.SetInt(fn.Int() + int64(spell.Value()))
-			}
+	v := reflect.ValueOf(object)
+
+	if v.IsValid() || !v.IsNil() {
+
+		v = v.Elem()
+
+		// меняем у объекта свойство, соответствующее заклинанию
+		fn := v.FieldByName(spell.Char())
+		if fn.CanSet() {
+			fn.SetInt(fn.Int() + int64(spell.Value()))
 		}
 	}
 
