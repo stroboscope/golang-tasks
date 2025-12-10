@@ -46,9 +46,8 @@ func (s *Stack) Len() uint64 {
 func Balance(s string) bool {
 	var st Stack
 	st.New()
-	runes := []rune(s)
 
-	for _, r := range runes {
+	for _, r := range s {
 		switch string(r) {
 
 		case "[", "(", "{":
