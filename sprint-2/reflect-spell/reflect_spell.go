@@ -1,5 +1,7 @@
 package reflect_spell
 
+import "reflect"
+
 type Spell interface {
 	// название заклинания
 	Name() string
@@ -21,7 +23,29 @@ func CastToAll(spell Spell, objects []interface{}) {
 }
 
 func CastTo(spell Spell, object interface{}) {
-	// реализуйте эту функцию.
+
+	v := reflect.ValueOf(object)
+
+	if v.IsValid() || !v.IsNil() {
+		// проверяем наличие у объекта метода ReceiveSpell
+		// и применяем заклинание через него, если он присутствует
+		_, ok := reflect.TypeOf(object).MethodByName("ReceiveSpell")
+		if ok {
+			a := make([]reflect.Value, 1)
+			a[0] = reflect.ValueOf(spell)
+			reflect.ValueOf(object).MethodByName("ReceiveSpell").Call(a)
+			return
+		}
+
+		v = v.Elem()
+
+		// меняем у объекта свойство, соответствующее заклинанию
+		fn := v.FieldByName(spell.Char())
+		if fn.CanSet() {
+			fn.SetInt(fn.Int() + int64(spell.Value()))
+		}
+	}
+
 }
 
 type spell struct {
