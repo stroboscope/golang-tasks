@@ -37,7 +37,7 @@ func MergeLists(list1 *Node, list2 *Node) *Node {
 		return Head
 	}
 
-	for !(l1 == nil || l2 == nil) {
+	for (l1 != nil || l2 != nil) {
 
 		if l1.Val <= l2.Val {
 			l.Next = l1
