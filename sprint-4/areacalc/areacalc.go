@@ -13,15 +13,16 @@ type Shape interface {
 
 type Rectangle struct {
 	name string
-	side []float64
+	sideA float64
+	sideB float64
 }
 
 func NewRectangle(a, b float64, s string) *Rectangle {
-	return &Rectangle{name: s, side: []float64{a, b}}
+	return &Rectangle{name: s, sideA: a, sideB: b}
 }
 
 func (r *Rectangle) Area() float64 {
-	return r.side[0] * r.side[1]
+	return r.sideA * r.sideB
 }
 
 func (r *Rectangle) Type() string {
